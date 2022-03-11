@@ -33,4 +33,9 @@ public class CreditCardController {
     public Flux<CreditCardDto> findAll() {
         return creditCardResource.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Mono<CreditCardDto> findById(@PathVariable String id) {
+        return creditCardResource.findById(id);
+    }
 }

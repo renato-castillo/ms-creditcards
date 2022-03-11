@@ -33,6 +33,7 @@ public class CreditCardResource extends MapperUtil {
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x -> {
                     CreditCard creditCard = convertToEntity(creditCardDto);
+                    creditCard.setCreatedAt(x.getCreatedAt());
                     creditCard.setUpdatedAt(LocalDateTime.now());
 
                     return creditCardService.save(creditCard).map(y -> convertToDto(y));
@@ -49,5 +50,9 @@ public class CreditCardResource extends MapperUtil {
 
         return creditCardService.findAll()
                 .map(x -> convertToDto(x));
+    }
+
+    public Mono<CreditCardDto> findById(String id) {
+        return creditCardService.findById(id).map(x -> convertToDto(x));
     }
 }
