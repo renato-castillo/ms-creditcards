@@ -19,12 +19,12 @@ public class CreditCardResource extends MapperUtil {
 
     public Mono<CreditCardDto> create(CreditCardDto creditCardDto) {
 
-        CreditCard creditCard = convertToEntity(creditCardDto);
+        CreditCard creditCard = map(creditCardDto, CreditCard.class);
 
         creditCard.setCreatedAt(LocalDateTime.now());
 
         return creditCardService.save(creditCard)
-                .map(x -> convertToDto(x));
+                .map(x -> map(x, CreditCardDto.class));
     }
 
     public Mono<CreditCardDto> update(CreditCardDto creditCardDto) {
@@ -32,11 +32,11 @@ public class CreditCardResource extends MapperUtil {
         return creditCardService.findById(creditCardDto.getId())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x -> {
-                    CreditCard creditCard = convertToEntity(creditCardDto);
+                    CreditCard creditCard = map(creditCardDto, CreditCard.class);
                     creditCard.setCreatedAt(x.getCreatedAt());
                     creditCard.setUpdatedAt(LocalDateTime.now());
 
-                    return creditCardService.save(creditCard).map(y -> convertToDto(y));
+                    return creditCardService.save(creditCard).map(y -> map(y, CreditCardDto.class));
                 });
     }
 
@@ -49,10 +49,14 @@ public class CreditCardResource extends MapperUtil {
     public Flux<CreditCardDto> findAll() {
 
         return creditCardService.findAll()
-                .map(x -> convertToDto(x));
+                .map(x -> map(x, CreditCardDto.class));
     }
 
     public Mono<CreditCardDto> findById(String id) {
-        return creditCardService.findById(id).map(x -> convertToDto(x));
+        return creditCardService.findById(id).map(x -> map(x, CreditCardDto.class));
+    }
+
+    public Flux<CreditCardDto> findByClientType(String clientType) {
+        return creditCardService.findByClientType(clientType).map(x -> map(x, CreditCardDto.class));
     }
 }

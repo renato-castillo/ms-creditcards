@@ -32,4 +32,9 @@ public class CreditCardServiceImpl implements ICreditCardService {
     public Flux<CreditCard> findAll() {
         return creditCardRepository.findAll();
     }
+
+    @Override
+    public Flux<CreditCard> findByClientType(String clientType) {
+        return creditCardRepository.findByClientType(clientType);
+    }
 }

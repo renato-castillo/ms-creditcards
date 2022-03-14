@@ -1,22 +1,24 @@
 package com.bootcamp.creditcards.util;
 
-import com.bootcamp.creditcards.dto.CreditCardDto;
-import com.bootcamp.creditcards.entity.CreditCard;
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public abstract class MapperUtil {
 
-    public CreditCardDto convertToDto(CreditCard creditCard) {
-        CreditCardDto creditCardDto = new CreditCardDto();
-        BeanUtils.copyProperties(creditCard, creditCardDto);
+    static ModelMapper modelMapper = new ModelMapper();
 
-        return creditCardDto;
+    public static <D, T> D map(final T entity, Class<D> outClass){
+        return modelMapper.map(entity,outClass);
     }
 
-    public CreditCard convertToEntity(CreditCardDto creditCardDto) {
-        CreditCard creditCard = new CreditCard();
-        BeanUtils.copyProperties(creditCardDto, creditCard);
-        return creditCard;
+    public <D, T> List<D> mapAll(final Collection <T> entityList, Class<D> outClass){
+        return entityList.stream()
+                .map(entity->map(entity, outClass))
+                .collect(Collectors.toList());
     }
 
 }
