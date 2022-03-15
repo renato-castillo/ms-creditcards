@@ -12,4 +12,6 @@ public interface ICreditCardRepository extends ReactiveMongoRepository<CreditCar
     Flux<CreditCard> findByClientType(String clientType);
 
     Mono<CreditCard> findByName(String name);
+
+    Mono<CreditCard> findByNameAndClientType(String name, String clientType);
 }

@@ -10,4 +10,6 @@ public interface ICreditCardService extends ICRUD<CreditCard, String> {
     Flux<CreditCard> findByClientType(String clientType);
 
     Mono<CreditCard> findByName(String name);
+
+    Mono<CreditCard> findByNameAndClientType(String name, String clientType);
 }

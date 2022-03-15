@@ -42,4 +42,9 @@ public class CreditCardServiceImpl implements ICreditCardService {
     public Mono<CreditCard> findByName(String name) {
         return creditCardRepository.findByName(name);
     }
+
+    @Override
+    public Mono<CreditCard> findByNameAndClientType(String name, String clientType) {
+        return creditCardRepository.findByNameAndClientType(name, clientType);
+    }
 }

@@ -60,6 +60,10 @@ public class CreditCardResource extends MapperUtil {
         return creditCardService.findByName(name).map(x -> map(x, CreditCardDto.class));
     }
 
+    public Mono<CreditCardDto> findByNameAndClientType(String name, String clientType) {
+        return creditCardService.findByNameAndClientType(name, clientType).map(x -> map(x, CreditCardDto.class));
+    }
+
     public Flux<CreditCardDto> findByClientType(String clientType) {
         return creditCardService.findByClientType(clientType).map(x -> map(x, CreditCardDto.class));
     }
