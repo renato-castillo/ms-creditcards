@@ -3,7 +3,9 @@ spring:
         name: ms-creditcards
     cloud:
         config:
-            url: http://localhost:8888
+            url: http://192.168.88.26:8888
 
-server:
-    port: 8081
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://192.168.88.26:8761/eureka/
